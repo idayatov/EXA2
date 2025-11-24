@@ -15,4 +15,4 @@ The C4 model for the system is:
 - Viewing Results
 
 All feature documents are here:  
-[features/](features/)
+[features](features/)
