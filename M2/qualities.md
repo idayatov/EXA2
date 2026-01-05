@@ -87,7 +87,7 @@ When the second person tries to save, the system notices the schedule was alread
 
 
 ---
-# (Ivan Tregub)
+### (Ivan Tregub)
 ## Quality Attribute: Performance — Response Time under Peak Load
 
 **Source of Stimulus:** Students (external users)  
