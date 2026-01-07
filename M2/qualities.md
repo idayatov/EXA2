@@ -111,27 +111,6 @@ The system handles concurrent read requests by scaling service instances across 
 
 ---
 
-## Performance — First day of semester: traffic spikes to 5,000 concurrent students accessing “Timetable Viewer” (Adriana González Nieves)
-
-**Source of Stimulus:** Student  
-
-**Stimulus:**  
-5,000 concurrent users attempt to view their timetables simultaneously at 9:00 AM on the first day of the semester.  
-
-**Artifact:**  
-- `universitySchedulingSystem.timetableViewer`  
-- `universitySchedulingSystem.loadBalancer` (new)  
-- backend services (`courseInfoContainer`, `teacherInfoContainer`)  
-
-**Environment:** Production, peak load, high concurrency.  
-
-**Response:**  
-The `loadBalancer` intercepts the massive influx of requests from the `timetableViewer` (UI) and distributes them across multiple backend service instances using a round-robin strategy. This prevents any single service instance from becoming a bottleneck and crashing.  
-
-**Measure:** Average page load time remains under 2 seconds with 0% error rate (no timeouts)  
-
-
----
 
 ## Modifiability — Ease of Feature Extension (Schedule Export) (Ivan Tregub)
 
@@ -156,7 +135,7 @@ The Timetable Viewer sends an export request via the Load Balancer. The Calendar
 
 ---
 
-## C4 Model updates for Schedule Export (Ivan Tregub)
+### C4 Model updates for Schedule Export 
 
 - **Container level:** A new container `calendarIntegrationService` was added to the model (reflected in the Container View).  
 - **Relationships:** New relationships were introduced:  
@@ -170,7 +149,29 @@ The Timetable Viewer sends an export request via the Load Balancer. The Calendar
 
 ---
 
-## Availability — Database hardware failure during critical schedule modification period (Scenario 2)
+## Performance — First day of semester: traffic spikes to 5,000 concurrent students accessing “Timetable Viewer” (Adriana González Nieves)
+
+**Source of Stimulus:** Student  
+
+**Stimulus:**  
+5,000 concurrent users attempt to view their timetables simultaneously at 9:00 AM on the first day of the semester.  
+
+**Artifact:**  
+- `universitySchedulingSystem.timetableViewer`  
+- `universitySchedulingSystem.loadBalancer` (new)  
+- backend services (`courseInfoContainer`, `teacherInfoContainer`)  
+
+**Environment:** Production, peak load, high concurrency.  
+
+**Response:**  
+The `loadBalancer` intercepts the massive influx of requests from the `timetableViewer` (UI) and distributes them across multiple backend service instances using a round-robin strategy. This prevents any single service instance from becoming a bottleneck and crashing.  
+
+**Measure:** Average page load time remains under 2 seconds with 0% error rate (no timeouts)  
+
+
+---
+
+## Availability — Database hardware failure during critical schedule modification period (Adriana González Nieves)
 
 **Source of Stimulus:** Database infrastructure (hardware failure)  
 
@@ -191,7 +192,7 @@ The system automatically fails over from the primary database to a standby datab
 
 ---
 
-## C4 Model implications for Database Failover (Scenario 2)
+### C4 Model implications for Database Failover
 
 - **Current state:** Deployment diagram shows a single `Database` container (PostgreSQL).  
 - **Issue:** This is a Single Point of Failure (SPOF): if the unique database node fails, all services stop working immediately.  
